@@ -1,0 +1,73 @@
+spring:
+  devtools:
+    livereload:
+      enabled: false
+  profiles:
+    active: production
+  http:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+
+server:
+  port: 8101
+
+file:
+  download:
+    url: http://39.98.58.93:8101/jar
+  linux:
+    upload-location: /mnt/files
+  windows:
+    upload-location: C:/files
+  mac:
+    upload-location: /var/tmp/files
+
+---
+spring:
+  profiles: cloud
+  datasource:
+#    url: jdbc:mariadb://192.168.1.165:3306/sia_cloud_tenant_db?useUnicode=true&characterEncoding=utf8&mysqlEncoding=utf8
+    url: jdbc:mariadb://192.168.1.166:3306/sia_cloud_tenant_db_1?useUnicode=true&characterEncoding=utf8&mysqlEncoding=utf8
+#    url: jdbc:mariadb://192.168.1.165:3306/sia_temp_tenant_db?useUnicode=true&characterEncoding=utf8&mysqlEncoding=utf8
+    username: root
+    password: ww_siames2015,.
+    driver-class-name: org.mariadb.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+---
+spring:
+  profiles: production
+  datasource:
+#    url: jdbc:mariadb://192.168.1.8:3306/sia_service_tenant_v2_db?useUnicode=true&characterEncoding=utf8&mysqlEncoding=utf8
+#    url: jdbc:mysql://192.168.0.245:3306/sia_service_tenant_v2_db?useUnicode=true&characterEncoding=utf8&mysqlEncoding=utf8
+    url: jdbc:mysql://rm-8vb7p49vn5y6uy887yo.mysql.zhangbei.rds.aliyuncs.com:3306/sia_tenant_db?useUnicode=true&characterEncoding=utf8&mysqlEncoding=utf8
+    username: sia
+#    username: root
+#    password: bowei123
+#    password: 123456
+    password: ww_siames2015
+    driver-class-name: com.mysql.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+
+---
+spring:
+  profiles: dev
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+  datasource:
+    url: jdbc:h2:mem:dbdev
+    username: root
+    password:
+    driver-class-name: org.h2.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
